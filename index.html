@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Linkedin form</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <style type="text/css">
+   .contain-main{
+    width:90%;
+    margin:auto;
+    padding-top: 50px;
+   }
+  </style>
+</head>
+<body>
+  <div class="contain-main">
+
+  	<div class="container-fluid">
+  		<div class="row well">
+
+  			<div class="col-sm-6">
+          
+
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="fname">First Name:</label>
+              <div class="col-sm-6"> 
+                <input type="text" class="form-control" id="fname" placeholder="Enter FirstName">
+              </div>
+
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="lname">Last Name:</label>
+              <div class="col-sm-6"> 
+                <input type="text" class="form-control" id="lname" placeholder="Enter LastName">
+               </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="email">Email:</label>
+              <div class="col-sm-6">
+                <input type="email" class="form-control" id="email" placeholder="Enter email">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="headline">Headline:</label>
+              <div class="col-sm-6"> 
+                <input type="text" class="form-control" id="headline" placeholder="">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="numConnections">Number of Connections:</label>
+              <div class="col-sm-6"> 
+                <input type="text" class="form-control" id="numConnections" placeholder="">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="siteProfileRequest">ProfileLink:</label>
+              <div class="col-sm-6"> 
+                <input type="text" class="form-control" id="siteProfileRequest" placeholder="">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="summary">Summary:</label>
+              <div class="col-sm-6"> 
+                <input type="text" class="form-control" id="summary" placeholder="">
+              </div>
+            </div>
+            
+            <div class="form-group"> 
+              <div class="col-sm-offset-2 col-sm-4">
+                <button type="submit" class="btn btn-default">Submit</button>
+              </div>
+            </div>
+          </form>
+          
+  				<script type="in/Login">
+  				</script>
+  				
+  			</div>
+        <div class="col-sm-3" id="profileimage" ></div>
+  		</div>
+  	</div>
+   </div> 
+	<script type="text/javascript" src="http://platform.linkedin.com/in.js">
+		api_key: 75p2faxgjxu2iz
+	    onLoad: loadLinkedin
+	    authorize: true
+	</script>
+	<script type="text/javascript">
+      var fName           = document.getElementById('fname');
+      var lName           = document.getElementById('lname');
+      var email           = document.getElementById('email');
+      var headLine        = document.getElementById('headline');
+      var NoOfConnections = document.getElementById('numConnections');
+      var siteLink        = document.getElementById('siteProfileRequest');
+      var mySummary       = document.getElementById('summary');
+      var profileImgEl    = document.getElementById('profileimage');
+      var profileImage    = document.createElement('img');
+
+			var loadLinkedin = function(){
+				IN.Event.on(IN, "auth", OnLinkedInAuth);
+			}
+
+			var OnLinkedInAuth = function() {
+			    //IN.API.Profile("me").result(ShowProfileData);
+			    IN.API.Profile("me")
+			          .fields(["siteStandardProfileRequest", "firstName", "lastName", "headline", "summary", "num-connections", "picture-url", 'id','email-address','date-of-birth','phone-numbers','positions'])
+			          .result(function(result) {
+			            console.log('test result ', JSON.stringify(result));
+			          });
+			}
+
+
+			var ShowProfileData = function(profiles) {
+			    var member = profiles.values[0];
+			    var id=member.id;
+			    var firstName=member.firstName; 
+			    var lastName=member.lastName; 
+			    var photo=member.pictureUrl; 
+			    var headline=member.headline; 
+
+
+			    console.log('profiles', profiles);
+			    //use information captured above
+			}
+		var xyz    = {
+                    "_total": 1,
+                    "values": [{
+                      "_key": "~",
+                      "emailAddress": "k.pavankumaar@gmail.com",
+                      "firstName": "Pavan",
+                      "headline": "Front End Developer",
+                      "id": "Pv30EVPeqt",
+                      "lastName": "Kumar",
+                      "numConnections": 1,
+                      "pictureUrl": "https://media.licdn.com/mpr/mprx/0__ow4ipSvQevq6xhcdUl9ImuvGu8eh78o7UP46HWvie5dhxOoFH0nwwFvLEBehxuEiajMF4kzfmEW_wEb2MmXIH5JEmEH_wsIoMmRhdKqT7xkWgTBQH4v8gYLoRK4owDV_VoqbUlN_xF",
+                      "positions": {"_total": 0},
+                      "siteStandardProfileRequest": {"url": "https://www.linkedin.com/profile/view?id=241840088&authType=name&authToken=5uTv&trk=api*a4562121*s4878891*"},
+                      "summary": "Front End Developer . .."
+                    }]
+                  }
+    console.log(xyz.values[0].firstName);
+
+    /*binding */
+    fName.value            = xyz.values[0].firstName;          
+    lName.value            = xyz.values[0].lastName;                               
+    email.value            = xyz.values[0].emailAddress;                               
+    headLine.value         = xyz.values[0].headline;                               
+    NoOfConnections.value  = xyz.values[0].numConnections;                               
+    siteLink.value         = xyz.values[0].siteStandardProfileRequest.url;
+    mySummary.value        = xyz.values[0].summary;    
+    profileImage.src       = xyz.values[0].pictureUrl;    
+    profileImgEl.appendChild(profileImage);
+	</script>
+	
+	    
+</body>
+</html>
+
